@@ -1,0 +1,28 @@
+{
+  "portrait": {
+    "width": 1003,
+    "height": 1254,
+    "widths": [
+      480,
+      800,
+      1000
+    ]
+  },
+  "portrait-square": {
+    "width": 803,
+    "height": 803,
+    "widths": [
+      320,
+      640
+    ]
+  },
+  "hospital": {
+    "width": 4284,
+    "height": 5484,
+    "widths": [
+      600,
+      900,
+      1300
+    ]
+  }
+}
