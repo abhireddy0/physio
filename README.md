@@ -39,7 +39,7 @@ Search Console helps Google discover the site, but neither indexing nor ranking 
 - `visiting-card.pdf`: print-ready, single-sided PDF with 3 mm bleed (95 × 57 mm artboard); trim to 89 × 51 mm.
 - `visiting-card-preview.png`: high-resolution image for sharing or review.
 
-The card text (name, phone, email and address) is set in `scripts/make-visiting-card.mjs`.
+The card includes a QR code that opens `https://physio-prashanth.vercel.app/`. Card text (name, phone, email and address) is set in `scripts/make-visiting-card.mjs`.
 
 ## Lottie animation
 

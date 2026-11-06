@@ -6,6 +6,7 @@ import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import QRCode from 'qrcode';
 import { launch } from './browser.mjs';
 
 const TEAL = '#16706f';
@@ -15,10 +16,20 @@ const GREY = '#6b7178';
 const fileUrl = (p) => pathToFileURL(path.resolve(p)).href;
 
 const PHYSIO_MARK = fileUrl('public/images/physio-mark.svg');
+const SITE_URL = 'https://physio-prashanth.vercel.app/';
+const QR_CODE = await QRCode.toDataURL(SITE_URL, {
+  errorCorrectionLevel: 'H',
+  margin: 2,
+  width: 512,
+});
 
 const CARD = `
 <div class="card">
   <img class="emblem" src="${PHYSIO_MARK}" alt="">
+  <div class="qr">
+    <img src="${QR_CODE}" alt="">
+    <span>SCAN TO VISIT</span>
+  </div>
   <div class="text">
     <p class="name">Dr. Prashanth S.</p>
     <p class="title">Physiotherapist</p>
@@ -42,7 +53,10 @@ body { font-family: Inter, sans-serif; }
 
 /* Artboard 95 × 57 mm incl. 3 mm bleed; text stays ≥ 4 mm inside the trim. */
 .card { position: relative; width: 95mm; height: 57mm; overflow: hidden; background: #fff; }
-.emblem { position: absolute; left: 5mm; top: 14mm; width: 26mm; height: 26mm; }
+.emblem { position: absolute; left: 5mm; top: 8mm; width: 26mm; height: 26mm; }
+.qr { position: absolute; left: 9.5mm; top: 36mm; width: 16mm; text-align: center; }
+.qr img { display: block; width: 16mm; height: 16mm; }
+.qr span { display: block; margin-top: .5mm; font: 600 4.5pt/1 Inter; color: ${GREY}; }
 .text { position: absolute; left: 34mm; top: 9.2mm; right: 7mm; }
 .name { font: 700 13pt/1.1 Manrope; letter-spacing: -0.01em; color: ${TEAL}; }
 .title { margin-top: 1.1mm; font: 600 8.6pt/1.2 Inter; color: ${OLIVE}; }

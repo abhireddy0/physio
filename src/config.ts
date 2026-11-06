@@ -41,7 +41,7 @@ export const PROFILE = {
   country: 'India',
   locationLine: 'Bengaluru, Karnataka, India',
   address: { street: 'Hebbal, R. T. Nagar Post', city: 'Bengaluru', region: 'Karnataka', postalCode: '560032', country: 'India' },
-  languages: ['English'],
+  languages: ['English', 'Hindi', 'Kannada', 'Telugu'],
   // Social links render only when provided.
   email: 'Prashanthlucky507@gmail.com',
   social: {} as Partial<Record<'instagram' | 'linkedin' | 'facebook', string>>,
