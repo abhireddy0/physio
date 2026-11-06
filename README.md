@@ -25,6 +25,10 @@ The domain is set in one place, `VITE_SITE_URL` (see `.env.example`).
 
 Deploy `dist/` to any static host (Netlify, Vercel, Cloudflare Pages, GitHub Pages and so on). Set `VITE_SITE_URL` only in the **production** environment's build settings.
 
+## Visitor analytics
+
+The site includes Vercel Web Analytics to report page views and unique visitors. In the Vercel project dashboard, open **Analytics** and enable Web Analytics. Data will appear there after the updated site is deployed and visitors use it.
+
 After launch:
 1. Add the domain to Google Search Console.
 2. Submit `https://<domain>/sitemap.xml`.
