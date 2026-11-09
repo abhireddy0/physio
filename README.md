@@ -25,6 +25,20 @@ The domain is set in one place, `VITE_SITE_URL` (see `.env.example`).
 
 Deploy `dist/` to any static host (Netlify, Vercel, Cloudflare Pages, GitHub Pages and so on). Set `VITE_SITE_URL` only in the **production** environment's build settings.
 
+## Patient reviews (Vercel)
+
+The review form stores submissions in MongoDB. New reviews remain private until Dr. Prashanth approves them in `/reviews-admin`; only approved reviews appear on the landing page. The form collects a display name, star rating and review text, requires consent, and asks clients not to include health details.
+
+Set these **server-side** environment variables in Vercel for preview and production as needed:
+
+- `MONGODB_URI`: MongoDB Atlas connection string. Keep it server-side; never use a `VITE_` prefix.
+- `MONGODB_DB`: database name (defaults to `physio`).
+- `REVIEWS_ADMIN_PASSWORD`: a strong, unique password for `/reviews-admin`.
+
+For local development, copy `.env.example` to `.env.local` and fill in the server-only values. The Vite development server serves the same API handlers locally. Do not commit `.env.local`.
+
+The API routes in `api/` require a host that supports Vercel Functions. Static-only hosts can still serve the landing page, but the MongoDB-backed review form and moderation inbox require Vercel deployment (or an equivalent server-side implementation).
+
 ## Visitor analytics
 
 The site includes Vercel Web Analytics to report page views and unique visitors. In the Vercel project dashboard, open **Analytics** and enable Web Analytics. Data will appear there after the updated site is deployed and visitors use it.

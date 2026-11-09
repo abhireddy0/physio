@@ -14,6 +14,10 @@ export default tseslint.config(
     rules: reactHooks.configs.recommended.rules,
   },
   {
+    files: ['src/server/**/*.ts'],
+    languageOptions: { globals: globals.node },
+  },
+  {
     files: ['scripts/**/*.mjs', '*.js'],
     extends: [js.configs.recommended],
     // page.evaluate() callbacks run in the browser

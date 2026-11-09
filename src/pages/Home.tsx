@@ -7,6 +7,7 @@ import { Header } from '../components/Header';
 import { ArrowRightIcon, ContactIcon, HeartIcon, HomeIcon, JointIcon, NeuroIcon, PhoneIcon, WhatsAppIcon } from '../components/Icons';
 import { Picture } from '../components/Picture';
 import { PhysioAnimation } from '../components/PhysioAnimation';
+import { ReviewsSection } from '../components/ReviewsSection';
 
 export function Home() {
   return (
@@ -21,6 +22,7 @@ export function Home() {
         <Treatments />
         <Techniques />
         <HomeVisits />
+        <ReviewsSection />
         <FaqSection />
         <Contact />
       </main>
@@ -388,6 +390,7 @@ function Footer() {
             <li><a href="#about">About</a></li>
             <li><a href="#treatments">Treatments</a></li>
             <li><a href="#home-visits">Home Visits</a></li>
+            <li><a href="#reviews">Patient reviews</a></li>
             <li><a href="#faq">FAQ</a></li>
           </ul>
         </nav>
@@ -407,8 +410,8 @@ function Footer() {
       <div className="container site-footer__legal">
         <p>
           The information on this website is general and educational. It does not replace an individual assessment by a
-          qualified healthcare professional. This website does not use enquiry forms or collect personal data; messages
-          sent via WhatsApp or phone are handled directly by Dr. Prashanth.
+          qualified healthcare professional. Review submissions are shared privately with Dr. Prashanth and appear
+          publicly only with your consent and his approval. Please do not include personal health information in a review.
         </p>
         <p suppressHydrationWarning>© {year} {PROFILE.name}</p>
       </div>

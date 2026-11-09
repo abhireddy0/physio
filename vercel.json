@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/reviews-admin",
+      "destination": "/index.html"
+    }
+  ]
+}
