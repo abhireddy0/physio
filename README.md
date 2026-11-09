@@ -23,21 +23,23 @@ The domain is set in one place, `VITE_SITE_URL` (see `.env.example`).
 - Localhost and private-network URLs are rejected.
 - `VITE_ALLOW_INDEXING=false` forces noindex on a staging deployment that has its own domain.
 
-Deploy `dist/` to any static host (Netlify, Vercel, Cloudflare Pages, GitHub Pages and so on). Set `VITE_SITE_URL` only in the **production** environment's build settings.
+Deploy the website and review API together as a Render web service. The included `render.yaml` configures the Node version, build/start commands, health check, and required environment variables.
 
-## Patient reviews (Vercel)
+## Patient reviews (Render)
 
 The review form stores submissions in MongoDB. New reviews remain private until Dr. Prashanth approves them in `/reviews-admin`; only approved reviews appear on the landing page. The form collects a display name, star rating and review text, requires consent, and asks clients not to include health details.
 
-Set these **server-side** environment variables in Vercel for preview and production as needed:
+To deploy:
 
-- `MONGODB_URI`: MongoDB Atlas connection string. Keep it server-side; never use a `VITE_` prefix.
-- `MONGODB_DB`: database name (defaults to `physio`).
-- `REVIEWS_ADMIN_PASSWORD`: a strong, unique password for `/reviews-admin`.
+1. Rotate the MongoDB database password if it has been shared, then URL-encode special characters in the new password before putting it in the connection URI.
+2. Push this repository to GitHub and in Render choose **New → Blueprint**, then select the repository containing `render.yaml`.
+3. Enter the prompted `MONGODB_URI`, `REVIEWS_ADMIN_PASSWORD`, and `VITE_SITE_URL` values. Use the Atlas URI with the database name `physio`; set the site URL to your Render service URL (for example `https://physio-reviews.onrender.com`). Keep database credentials and the admin password server-side; never use a `VITE_` prefix for secrets.
+4. In MongoDB Atlas, allow network connections from Render (or use `0.0.0.0/0` if needed for Render's dynamic outbound IPs) and ensure the database user has access to the `physio` database.
+5. After deployment, check `/healthz`, `/api/reviews`, then open `/reviews-admin` to approve client submissions.
 
-For local development, copy `.env.example` to `.env.local` and fill in the server-only values. The Vite development server serves the same API handlers locally. Do not commit `.env.local`.
+Render runs `npm run build` and `npm run start`. The Node server serves both the built site and the API routes in `api/`; a separate backend service is not needed. For local development, set `MONGODB_URI`, `MONGODB_DB`, and `REVIEWS_ADMIN_PASSWORD` in the ignored `.env` file. Never commit `.env`.
 
-The API routes in `api/` require a host that supports Vercel Functions. Static-only hosts can still serve the landing page, but the MongoDB-backed review form and moderation inbox require Vercel deployment (or an equivalent server-side implementation).
+Static-only hosting will not run the MongoDB-backed review API; use the configured Render web service for both the site and API.
 
 ## Visitor analytics
 

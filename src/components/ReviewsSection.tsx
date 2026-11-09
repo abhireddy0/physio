@@ -1,4 +1,5 @@
 import { useEffect, useState, type FormEvent } from 'react';
+import { readReviewsResponse } from './reviews-api';
 
 type Review = {
   id: string;
@@ -38,11 +39,7 @@ export function ReviewsSection() {
   useEffect(() => {
     let active = true;
     fetch('/api/reviews')
-      .then(async (response) => {
-        const result = (await response.json()) as ReviewsResponse;
-        if (!response.ok) throw new Error(result.error || 'Reviews could not be loaded.');
-        return result;
-      })
+      .then((response) => readReviewsResponse<ReviewsResponse>(response))
       .then((result) => {
         if (active) setReviews(result.reviews);
       })
@@ -69,8 +66,7 @@ export function ReviewsSection() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, rating, text, consent, website }),
       });
-      const result = (await response.json()) as ReviewsResponse;
-      if (!response.ok) throw new Error(result.error || 'Your review could not be submitted.');
+      const result = await readReviewsResponse<ReviewsResponse>(response);
       setName('');
       setText('');
       setRating(0);

@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react';
+import { readReviewsResponse } from '../components/reviews-api';
 
 type PendingReview = {
   id: string;
@@ -22,8 +23,7 @@ export function ReviewsAdmin() {
     const response = await fetch('/api/admin/reviews', {
       headers: { Authorization: `Bearer ${secret}` },
     });
-    const result = (await response.json()) as AdminResponse;
-    if (!response.ok) throw new Error(result.error || 'Pending reviews could not be loaded.');
+    const result = await readReviewsResponse<AdminResponse>(response);
     setReviews(result.reviews || []);
     setAuthenticated(true);
   }
@@ -54,8 +54,7 @@ export function ReviewsAdmin() {
         },
         body: JSON.stringify({ id, action }),
       });
-      const result = (await response.json()) as AdminResponse;
-      if (!response.ok) throw new Error(result.error || 'The review could not be updated.');
+      const result = await readReviewsResponse<AdminResponse>(response);
       setReviews((current) => current.filter((review) => review.id !== id));
       setNotice(result.message || 'Review updated.');
     } catch (requestError) {

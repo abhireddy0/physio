@@ -1,6 +1,9 @@
 node_modules
 dist
+dist-server
 dist-ssr
 .env
 .env.local
+.env.*
+!.env.example
 source-photos/
